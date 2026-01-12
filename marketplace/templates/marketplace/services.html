@@ -1,0 +1,11 @@
+<h1>List of Available Services</h1>
+<ul>
+    {% for service in services %}
+        <li>
+            <strong>{{ service.title }}</strong> - {{ service.price }} EUR 
+            (Category: {{ service.get_category_display }})
+        </li>
+    {% empty %}
+        <li>There are currently no services listed.</li>
+    {% endfor %}
+</ul>
