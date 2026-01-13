@@ -13,7 +13,16 @@
 
     <nav class="navbar navbar-dark bg-dark mb-4">
         <div class="container">
-            <a class="navbar-brand" href="#">Online Marketplace</a>
+            <a class="navbar-brand" href="{% url 'service_list' %}">Online Marketplace</a>
+            <div class="d-flex">
+                {% if user.is_authenticated %}
+                <span class="navbar-text me-3 text-white">Salut, {{ user.username }}!</span>
+                <a href="{% url 'account_logout' %}" class="btn btn-outline-danger btn-sm">Logout</a>
+                {% else %}
+                <a href="{% url 'account_login' %}" class="btn btn-outline-light btn-sm me-2">Login</a>
+                <a href="{% url 'account_signup' %}" class="btn btn-light btn-sm">Register</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
     <div class="container">
