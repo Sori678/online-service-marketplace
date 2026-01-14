@@ -11,12 +11,13 @@
 
 <body class="bg-light">
 
-    <nav class="navbar navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-dark bg-dark mb-4 shadow">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'service_list' %}">Online Marketplace</a>
-            <div class="d-flex">
+            <a class="navbar-brand fw-bold" href="{% url 'service_list' %}">Online Marketplace</a>
+            <div class="d-flex align-items-center">
                 {% if user.is_authenticated %}
-                <span class="navbar-text me-3 text-white">Salut, {{ user.username }}!</span>
+                <a href="{% url 'create_service' %}" class="btn btn-success btn-sm me-3">+ Add Service</a>
+                <span class="navbar-text me-3 text-white">Salut, <strong>{{ user.username }}</strong>!</span>
                 <a href="{% url 'account_logout' %}" class="btn btn-outline-danger btn-sm">Logout</a>
                 {% else %}
                 <a href="{% url 'account_login' %}" class="btn btn-outline-light btn-sm me-2">Login</a>
