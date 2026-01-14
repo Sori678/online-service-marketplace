@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Service
 from django.shortcuts import redirect
 from .forms import ServiceForm
@@ -19,3 +19,7 @@ def create_service(request):
     else:
         form = ServiceForm()
     return render(request, 'marketplace/service_form.html', {'form': form})
+
+def service_detail(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    return render(request, 'marketplace/service_detail.html', {'service': service})

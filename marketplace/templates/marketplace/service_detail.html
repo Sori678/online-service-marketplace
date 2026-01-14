@@ -1,0 +1,31 @@
+{% extends 'marketplace/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-dark text-white text-center py-4">
+                <h1 class="mb-0">{{ service.title }}</h1>
+            </div>
+            <div class="card-body p-5 bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <span class="badge bg-primary fs-6 p-2">{{ service.get_category_display }}</span>
+                    <h3 class="text-success mb-0 fw-bold">{{ service.price }} EUR</h3>
+                </div>
+                <hr>
+                <h5 class="text-muted mb-3">Service Description:</h5>
+                <p class="lead" style="white-space: pre-wrap;">{{ service.description }}</p>
+                <hr class="my-4">
+                <div class="bg-light p-3 rounded d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Posted by: <strong>{{ service.provider.username }}</strong></small>
+                    <small class="text-muted">Date: {{ service.created_on|date:"d M Y" }}</small>
+                </div>
+
+                <div class="mt-5 d-flex gap-2">
+                    <a href="{% url 'service_list' %}" class="btn btn-outline-secondary">← Back to list</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
