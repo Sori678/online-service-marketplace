@@ -23,3 +23,23 @@ def create_service(request):
 def service_detail(request, service_id):
     service = get_object_or_404(Service, id=service_id)
     return render(request, 'marketplace/service_detail.html', {'service': service})
+
+def edit_service(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    
+    if service.provider != request.user:
+        return redirect('service_list') 
+    
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, instance=service)
+        if form.is_valid():
+            form.save()
+            return redirect('service_detail', service_id=service.id)
+    else:
+        form = ServiceForm(instance=service)
+        
+    return render(request, 'marketplace/service_form.html', {
+        'form': form,
+        'edit_mode': True,
+        'service': service
+    })

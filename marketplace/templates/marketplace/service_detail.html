@@ -20,7 +20,11 @@
                     <small class="text-muted">Posted by: <strong>{{ service.provider.username }}</strong></small>
                     <small class="text-muted">Date: {{ service.created_on|date:"d M Y" }}</small>
                 </div>
-
+                {% if user == service.provider %}
+                <div class="mt-4 pt-3 border-top">
+                    <a href="{% url 'edit_service' service.id %}" class="btn btn-warning">Edit Service</a>
+                </div>
+                {% endif %}
                 <div class="mt-5 d-flex gap-2">
                     <a href="{% url 'service_list' %}" class="btn btn-outline-secondary">← Back to list</a>
                 </div>
