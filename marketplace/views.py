@@ -43,3 +43,15 @@ def edit_service(request, service_id):
         'edit_mode': True,
         'service': service
     })
+
+def delete_service(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    
+    if service.provider != request.user:
+        return redirect('service_list')
+    
+    if request.method == 'POST':
+        service.delete()
+        return redirect('service_list')
+        
+    return render(request, 'marketplace/service_confirm_delete.html', {'service': service})
