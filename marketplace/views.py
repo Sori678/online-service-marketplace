@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Service
 from django.shortcuts import redirect
 from .forms import ServiceForm
+from django.contrib import messages
 # Create your views here.
 
 def service_list(request):
@@ -15,6 +16,7 @@ def create_service(request):
             service = form.save(commit=False)
             service.provider = request.user  
             service.save()
+            messages.success(request, 'The service was created successfully!')
             return redirect('service_list')
     else:
         form = ServiceForm()
@@ -34,6 +36,7 @@ def edit_service(request, service_id):
         form = ServiceForm(request.POST, instance=service)
         if form.is_valid():
             form.save()
+            messages.success(request, 'The service has been updated!')
             return redirect('service_detail', service_id=service.id)
     else:
         form = ServiceForm(instance=service)
@@ -52,6 +55,7 @@ def delete_service(request, service_id):
     
     if request.method == 'POST':
         service.delete()
+        messages.warning(request, 'The service has been permanently removed.')
         return redirect('service_list')
         
     return render(request, 'marketplace/service_confirm_delete.html', {'service': service})
