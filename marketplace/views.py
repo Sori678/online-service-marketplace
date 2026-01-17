@@ -7,7 +7,11 @@ from django.contrib import messages
 
 def service_list(request):
     services = Service.objects.all()
-    return render(request, 'marketplace/services.html', {'services': services})
+    query = request.GET.get('q')
+    if query:
+        services = services.filter(title__icontains=query) | services.filter(description__icontains=query)
+    
+    return render(request, 'marketplace/services.html', {'services': services, 'query': query})
 
 def create_service(request):
     if request.method == 'POST':

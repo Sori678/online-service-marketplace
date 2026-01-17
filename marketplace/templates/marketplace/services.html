@@ -2,6 +2,18 @@
 
 {% block content %}
 <h1 class="text-center mb-4">Available Services</h1>
+<div class="row justify-content-center mb-5">
+    <div class="col-md-6">
+        <form method="GET" action="{% url 'service_list' %}" class="d-flex shadow-sm">
+            <input name="q" class="form-control me-2" type="search" placeholder="Looking for a service (ex: cleaning)..."
+                value="{{ query|default:'' }}">
+            <button class="btn btn-primary" type="submit">Search</button>
+            {% if query %}
+            <a href="{% url 'service_list' %}" class="btn btn-outline-secondary ms-2">Reset</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
 <div class="row">
     {% for service in services %}
     <div class="col-md-4 mb-4">
