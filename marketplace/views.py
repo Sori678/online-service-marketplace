@@ -63,3 +63,9 @@ def delete_service(request, service_id):
         return redirect('service_list')
         
     return render(request, 'marketplace/service_confirm_delete.html', {'service': service})
+def my_services(request):
+    user_services = Service.objects.filter(provider=request.user).order_by('-created_on')
+    
+    return render(request, 'marketplace/my_services.html', {
+        'services': user_services
+    })

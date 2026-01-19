@@ -1,0 +1,46 @@
+{% extends 'marketplace/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Ads</h1>
+        <a href="{% url 'create_service' %}" class="btn btn-success">+ Add Other</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {% if services %}
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Date</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in services %}
+                        <tr>
+                            <td><strong>{{ service.title }}</strong></td>
+                            <td>{{ service.price }} EUR</td>
+                            <td>{{ service.created_on|date:"d M Y" }}</td>
+                            <td class="text-end">
+                                <a href="{% url 'service_detail' service.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                                <a href="{% url 'edit_service' service.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{% url 'delete_service' service.id %}" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="text-center py-5">
+                    <p class="text-muted">You haven't posted any services yet.</p>
+                    <a href="{% url 'create_service' %}" class="btn btn-primary">Post your first service</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
