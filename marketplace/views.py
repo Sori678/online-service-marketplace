@@ -3,6 +3,7 @@ from .models import Service
 from django.shortcuts import redirect
 from .forms import ServiceForm
 from django.contrib import messages
+from django.db.models import Sum
 # Create your views here.
 
 def service_list(request):
@@ -65,7 +66,8 @@ def delete_service(request, service_id):
     return render(request, 'marketplace/service_confirm_delete.html', {'service': service})
 def my_services(request):
     user_services = Service.objects.filter(provider=request.user).order_by('-created_on')
-    
+    total_value = user_services.aggregate(Sum('price'))['price__sum'] or 0
     return render(request, 'marketplace/my_services.html', {
-        'services': user_services
+        'services': user_services,
+        'total_value': total_value
     })
