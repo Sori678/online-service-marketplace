@@ -5,8 +5,8 @@
 <div class="row justify-content-center mb-5">
     <div class="col-md-6">
         <form method="GET" action="{% url 'service_list' %}" class="d-flex shadow-sm">
-            <input name="q" class="form-control me-2" type="search" placeholder="Looking for a service (ex: cleaning)..."
-                value="{{ query|default:'' }}">
+            <input name="q" class="form-control me-2" type="search"
+                placeholder="Looking for a service (ex: cleaning)..." value="{{ query|default:'' }}">
             <button class="btn btn-primary" type="submit">Search</button>
             {% if query %}
             <a href="{% url 'service_list' %}" class="btn btn-outline-secondary ms-2">Reset</a>
@@ -18,6 +18,12 @@
     {% for service in services %}
     <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
+            {% if service.image %}
+            <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.title }}"
+                style="height: 200px; object-fit: cover;">
+            {% else %}
+            <img src="https://via.placeholder.com/300x200?text=Fara+Imagine" class="card-img-top" alt="Fara imagine">
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">
                     <a href="{% url 'service_detail' service.id %}" class="text-decoration-none text-primary">
