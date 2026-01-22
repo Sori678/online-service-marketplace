@@ -16,7 +16,7 @@ def service_list(request):
 
 def create_service(request):
     if request.method == 'POST':
-        form = ServiceForm(request.POST)
+        form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
             service = form.save(commit=False)
             service.provider = request.user  
@@ -59,6 +59,7 @@ def delete_service(request, service_id):
         return redirect('service_list')
     
     if request.method == 'POST':
+        form = ServiceForm(request.POST, request.FILES, instance=service)
         service.delete()
         messages.warning(request, 'The service has been permanently removed.')
         return redirect('service_list')

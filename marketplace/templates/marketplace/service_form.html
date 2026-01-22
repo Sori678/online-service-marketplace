@@ -6,10 +6,13 @@
         <div class="card shadow">
             <div class="card-body">
                 <h2 class="text-center mb-4">Add a New Service</h2>
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary w-100">Publish service</button>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">Publish Service</button>
+                        <a href="{% url 'service_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>
