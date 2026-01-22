@@ -14,38 +14,36 @@
         </form>
     </div>
 </div>
-<div class="row">
+<div class="row row-cols-1 row-cols-md-3 g-4">
     {% for service in services %}
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-            {% if service.image %}
-            <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.title }}"
-                style="height: 200px; object-fit: cover;">
-            {% else %}
-            <img src="https://via.placeholder.com/300x200?text=Fara+Imagine" class="card-img-top" alt="Fara imagine">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">
-                    <a href="{% url 'service_detail' service.id %}" class="text-decoration-none text-primary">
-                        {{ service.title }}
-                    </a>
-                </h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ service.get_category_display }}</h6>
-                <p class="card-text">{{ service.description|truncatewords:20 }}</p>
-            </div>
-            <div class="card-footer bg-white border-top-0">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="badge bg-success fs-6">{{ service.price }} EUR</span>
-                    <small class="text-muted">Offered by: {{ service.provider.username }}</small>
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+            <div style="height: 200px; overflow: hidden; background-color: #f8f9fa;">
+                {% if service.image %}
+                <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.title }}"
+                    style="height: 100%; width: 100%; object-fit: cover;">
+                {% else %}
+                <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                    <span>No Image</span>
                 </div>
+                {% endif %}
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title text-primary fw-bold">{{ service.title }}</h5>
+                <p class="card-text text-muted small">{{ service.description|truncatechars:80 }}</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="badge bg-success fs-6">{{ service.price }} EUR</span>
+                    <small class="text-muted">By: {{ service.provider.username }}</small>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+                <a href="{% url 'service_detail' service.id %}" class="btn btn-outline-primary btn-sm w-100">See Details</a>
             </div>
         </div>
     </div>
     {% empty %}
-    <div class="col-12">
-        <div class="alert alert-info text-center">There are currently no services listed.</div>
-    </div>
+    <p class="text-center w-100">There are currently no services matching your search.</p>
     {% endfor %}
-</div>
 </div>
 {% endblock %}

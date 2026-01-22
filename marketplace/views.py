@@ -38,7 +38,7 @@ def edit_service(request, service_id):
         return redirect('service_list') 
     
     if request.method == 'POST':
-        form = ServiceForm(request.POST, instance=service)
+        form = ServiceForm(request.POST, request.FILES, instance=service)
         if form.is_valid():
             form.save()
             messages.success(request, 'The service has been updated!')
