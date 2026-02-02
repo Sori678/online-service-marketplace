@@ -56,3 +56,9 @@ I have performed extensive manual testing throughout the development lifecycle. 
 ## 7. Credits
 * **Code Institute**: For the pedagogical framework.
 * **Django Documentation**: For technical guidance.
+
+# Online Service Marketplace
+
+* Link-ul GitHub: https://github.com/Sori678/online-service-marketplace
+
+* Link-ul Live Heroku: https://online-service-sorin-c2b78d35ddee.herokuapp.com/
