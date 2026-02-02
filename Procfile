@@ -1,0 +1,1 @@
+web: gunicorn servicemarketplace.wsgi
