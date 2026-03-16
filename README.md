@@ -2,10 +2,13 @@
 
 ServiceLink is a full-stack marketplace platform built with Django, designed to connect service providers with customers. The application allows users to create professional listings, upload images, search for services, and manage their personal portfolio with real-time value calculations.
 
-
+* **Live Project**: [https://online-service-sorin-c2b78d35ddee.herokuapp.com/](https://online-service-sorin-c2b78d35ddee.herokuapp.com/)
+* **GitHub Repository**: [https://github.com/Sori678/online-service-marketplace](https://github.com/Sori678/online-service-marketplace)
 
 ## 1. Project Goals
+
 The project aims to provide a secure environment for local commerce:
+
 * **User Empowerment**: Allow individuals to monetize their skills easily.
 * **Reliability**: Use a robust backend to ensure data persistence and security.
 * **Clean UX**: Provide a responsive interface that works on all devices.
@@ -13,46 +16,82 @@ The project aims to provide a secure environment for local commerce:
 ## 2. User Experience (UX)
 
 ### User Stories
+
 * **As a Visitor**: I want to browse services and use the search bar to find specific offerings.
 * **As a Registered User**: I want to post new services with descriptions, prices, and images.
 * **As an Owner**: I want to edit or delete my listings to keep my information accurate.
 * **As a Professional**: I want to see the total financial value of my active ads on my dashboard.
 
-## 3. Features
+### Design Process
+
+* **Wireframes**: Initial sketches were created to ensure a mobile-first approach.
+* **Home Page Layout**:
+![Home Page Wireframe](./documentation/homepage.png)
+
+* **Add/Edit Service Form**:
+![Service Form Wireframe](./documentation/service.png)
+* **Color Palette**: A professional combination of blue and white was chosen to convey trust and clarity in a marketplace environment.
+* **Typography**: Clean sans-serif fonts (Bootstrap default) are used to maintain high readability across different screen sizes.
+
+## 3. Agile Methodology
+
+This project was developed using Agile principles. Tasks were managed via GitHub Projects, utilizing User Stories with specific Acceptance Criteria and prioritization (Must Have/Should Have labels).
+
+The project board can be found here: [GitHub Project Board](https://github.com/users/Sori678/projects/20)
+
+## 4. Features
+
 * **Authentication**: Secure Login/Register/Logout flow using Django Allauth.
 * **CRUD Management**: Full control over service listings (Create, Read, Update, Delete).
-* **Image Processing**: Dynamic image uploading and resizing using the Pillow library.
-* **Portfolio Dashboard**: A private "My Ads" page for every user.
+* **Image Processing**: Dynamic image uploading.
+* **Portfolio Dashboard**: A private "My Ads" page for every user with total value calculation.
 * **Search Engine**: Keyword-based filtering for the main service list.
 
-## 4. Manual Testing Documentation
+## 5. Testing and Validation
 
-I have performed extensive manual testing throughout the development lifecycle. Each test case below is linked to a visual proof located in the `/documentation` folder.
+### Validation Results
 
-| Test ID | Feature | Expected Result | Visual Proof (Click to view) |
-|---------|---------|-----------------|-----------------------------|
-| **t1-t2** | Admin Panel | Successfully managed services via admin backend. | [View t1](./documentation/t1.png) / [t2](./documentation/t2.png) |
-| **t3-t4** | UI Layout | Initial list converted to Bootstrap cards. | [View t3](./documentation/t3.png) / [t4](./documentation/t4.png) |
-| **t5-t6** | Navbar | Navigation links change based on session. | [View t5](./documentation/t5.png) / [t6](./documentation/t6.png) |
-| **t7** | Allauth | Functional Sign-Up form with validation. | [View t7](./documentation/t7.png) |
-| **t8-t9** | Forms | Service data is correctly captured and saved. | [View t8](./documentation/t8.png) / [t9](./documentation/t9.png) |
-| **t10-t11** | Database | Multiple services display correctly with details. | [View t10](./documentation/t10.png) / [t11](./documentation/t11.png) |
-| **t12-t13** | Feedback | Success alerts appear after login/update. | [View t12](./documentation/t12.png) / [t13](./documentation/t13.png) |
-| **t14-t15** | Security | Confirm prompt appears before deletion. | [View t14](./documentation/t14.png) / [t15](./documentation/t15.png) |
-| **t16** | Search | Search bar returns results for keywords. | [View t16](./documentation/t16.png) |
-| **t17-t18** | Logic | Dashboard correctly sums portfolio prices. | [View t17](./documentation/t17.png) / [t18](./documentation/t18.png) |
-| **t19-t21** | Media | Images render correctly in cards and details. | [View t19](./documentation/t19.png) / [t20](./documentation/t20.png) |
-| **t22** | Polish | Final responsive detail view with action buttons. | [View t22](./documentation/t22.png) |
+* **Python (PEP8)**: All code in `marketplace/views.py` and `marketplace/models.py` has been validated to comply with PEP8 standards.
+* **HTML**: Validated using the W3C Markup Validation Service.
+* **CSS**: Validated using the W3C CSS Validation Service (Jigsaw).
 
-## 5. Technologies Used
+### Manual Testing
+
+| Test ID | Feature | Expected Result | Result |
+| --- | --- | --- | --- |
+| **t7** | Sign-Up | Form validates correctly; creates user. | Pass |
+| **t8-t9** | CRUD Forms | Data is correctly saved to the database. | Pass |
+| **t14-t15** | Deletion | Confirm prompt appears before removing data. | Pass |
+| **t16** | Search | Filtered results match the search keyword. | Pass |
+
+## 6. Deployment
+
+### Heroku Deployment
+
+The project is deployed on Heroku following these steps:
+
+1. Create a new app on Heroku.
+2. Set the environment variables (**Config Vars**): `SECRET_KEY`, `DATABASE_URL`, and `DISABLE_COLLECTSTATIC=1`.
+3. Link the GitHub repository and select the main branch for deployment.
+4. Run migrations via the Heroku console: `python manage.py migrate`.
+
+### Local Installation
+
+To run the project locally:
+
+1. Clone the repo: `git clone https://github.com/Sori678/online-service-marketplace.git`
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run migrations: `python manage.py migrate`
+4. Start the server: `python manage.py runserver`
+
+## 7. Technologies Used
+
 * **Languages**: Python, HTML5, CSS3, JavaScript.
-* **Framework**: Django 5.x.
-* **Libraries**: Pillow, Django-Allauth.
-* **Database**: SQLite3.
+* **Framework**: Django.
+* **Libraries**: Pillow, Django-Allauth, Gunicorn (for Heroku).
+* **Database**: Heroku Postgres (Production), SQLite3 (Development).
 
-## 6. Credits
-* **Code Institute**: For the project framework and support.
+## 8. Credits
 
-## 7. Credits
-* **Code Institute**: For the pedagogical framework.
+* **Code Institute**: For the pedagogical framework and support.
 * **Django Documentation**: For technical guidance.
