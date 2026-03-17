@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, Q
 from .models import Service
 from .forms import ServiceForm
 
@@ -13,9 +14,7 @@ def service_list(request):
     query = request.GET.get('q')
     if query:
         services = services.filter(
-            title__icontains=query
-        ) | services.filter(
-            description__icontains=query
+            Q(title__icontains=query) | Q(description__icontains=query)
         )
 
     return render(
@@ -25,6 +24,7 @@ def service_list(request):
     )
 
 
+@login_required
 def create_service(request):
     """
     Handle the creation of a new service listing.
@@ -54,6 +54,7 @@ def service_detail(request, service_id):
     )
 
 
+@login_required
 def edit_service(request, service_id):
     """
     Handle editing of an existing service listing.
@@ -61,6 +62,7 @@ def edit_service(request, service_id):
     service = get_object_or_404(Service, id=service_id)
 
     if service.provider != request.user:
+        messages.error(request, 'You do not have permission to edit this.')
         return redirect('service_list')
 
     if request.method == 'POST':
@@ -79,6 +81,7 @@ def edit_service(request, service_id):
     })
 
 
+@login_required
 def delete_service(request, service_id):
     """
     Handle service deletion with confirmation.
@@ -86,6 +89,7 @@ def delete_service(request, service_id):
     service = get_object_or_404(Service, id=service_id)
 
     if service.provider != request.user:
+        messages.error(request, 'You do not have permission to delete this.')
         return redirect('service_list')
 
     if request.method == 'POST':
@@ -100,6 +104,7 @@ def delete_service(request, service_id):
     )
 
 
+@login_required
 def my_services(request):
     """
     Display a private dashboard for the logged-in user's services.
