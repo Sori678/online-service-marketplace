@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security settings
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'a-temporary-security-key')
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['online-service-sorin-c2b78d35ddee.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Fix for Admin Panel access on Heroku
