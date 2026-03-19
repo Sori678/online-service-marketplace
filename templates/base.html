@@ -18,8 +18,7 @@
                 {% if user.is_authenticated %}
                 <a href="{% url 'create_service' %}" class="btn btn-success btn-sm me-3">+ Add Service</a>
                 <span class="navbar-text me-3 text-white">
-                    Hello, <a href="{% url 'my_services' %}" class="text-white fw-bold text-decoration-none">{{
-                        user.username }}</a>!
+                    Hello, <a href="{% url 'my_services' %}" class="text-white fw-bold">{{ user.username }}</a>!
                 </span>
                 <form action="{% url 'account_logout' %}" method="post" class="d-inline">
                     {% csrf_token %}
