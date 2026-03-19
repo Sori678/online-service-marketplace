@@ -102,7 +102,6 @@ if os.environ.get('CLOUDINARY_URL'):
     CLOUDINARY_STORAGE = {
         'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
     }
-
 # Auth settings
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
