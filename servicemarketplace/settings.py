@@ -7,7 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security settings
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'a-temporary-security-key')
-DEBUG = True
+
+# MODIFICARE CRITICĂ PENTRU SIGURANȚĂ: 
+# DEBUG va fi False pe Heroku, dar îl poți activa local dacă adaugi variabila DEVELOPMENT=True
+DEBUG = os.environ.get('DEVELOPMENT', 'False') == 'True'
+
 ALLOWED_HOSTS = ['online-service-sorin-c2b78d35ddee.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Fix for Admin Panel access on Heroku
@@ -91,17 +95,17 @@ USE_TZ = True
 # Static & Media Files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # Adăugat pentru a preveni erori la colectare
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Configurare robustă Cloudinary
-if os.environ.get('CLOUDINARY_URL'):
-    CLOUDINARY_STORAGE = {
-        'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
-    }
+# Configurare Cloudinary prin variabile de mediu
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+}
+
 # Auth settings
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -111,5 +115,4 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# Allauth settings (pentru a evita erori la Sign Up)
 ACCOUNT_EMAIL_VERIFICATION = 'none'
